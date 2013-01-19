@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>HTML 5 Demo</title>
+        <script src="jquery-1.9.0.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                drawRoundedBoardersOnCanvas();
+
+            });
+
+            function drawRoundedBoardersOnCanvas() {
+                var canvas = $("#canvas");
+                var context = canvas.get(0).getContext("2d");
+                var canvasHeight = canvas.height();
+                var canvasWidth = canvas.width();
+                var cornerRadius = 50;
+                var rectanglePadding = 10;
+
+                context.beginPath();
+                // start at 0,0
+                context.moveTo(rectanglePadding + cornerRadius, rectanglePadding);
+                // draw top line
+                // Y stays constant, x goes to the width - the padding and the corner radius
+                context.lineTo(canvasWidth - rectanglePadding - cornerRadius, rectanglePadding);
+                // arc from that point down to the right side
+                context.arcTo(canvasWidth - rectanglePadding, rectanglePadding ,
+                    canvasWidth - rectanglePadding, rectanglePadding + cornerRadius, cornerRadius);
+                // draw right line
+                context.lineTo(canvasWidth - rectanglePadding, canvasHeight - cornerRadius - rectanglePadding);
+
+                // arc from right to bottom
+                context.arcTo(canvasWidth - rectanglePadding, canvasHeight - rectanglePadding,
+                    canvasHeight - rectanglePadding - cornerRadius, canvasHeight - rectanglePadding, cornerRadius);
+
+                // draw bottom line
+                context.lineTo(rectanglePadding + cornerRadius, canvasHeight - rectanglePadding);
+
+                // draw arc from bottom to left
+                context.arcTo(rectanglePadding, canvasHeight - rectanglePadding, rectanglePadding,
+                    canvasHeight - rectanglePadding - cornerRadius ,cornerRadius);
+
+                // draw left line
+                context.lineTo(rectanglePadding, rectanglePadding + cornerRadius);
+
+                // draw arc from left to top
+                context.arcTo(rectanglePadding, rectanglePadding, rectanglePadding + cornerRadius,
+                    rectanglePadding, cornerRadius);
+
+
+                context.stroke();
+            }
+        </script>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </body>
+</html>
