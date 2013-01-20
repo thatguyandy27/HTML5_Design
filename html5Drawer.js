@@ -1,6 +1,6 @@
 html5Drawer = new function () {
 
-    this.drawRoundedRectangle = function drawRoundedRectangle(context, options) {
+    this.drawRoundedRectangle = function (context, options) {
         var height = options["height"];
         var width = options["width"];
         var cornerRadius = options["radius"];
@@ -55,7 +55,7 @@ html5Drawer = new function () {
         }
     }
 
-    this.drawText = function drawText(context, text, options) {
+    this.drawText = function (context, text, options) {
 
         var xStart = options["x"];
         var yStart = options["y"];

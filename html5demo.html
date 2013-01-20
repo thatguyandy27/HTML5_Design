@@ -24,12 +24,21 @@
                 var list = ['object1', 'object2', 'object3'];
 
                 for (var i = 0; i < list.length; i++) {
-                    html5Drawer.drawText(canvas.get(0).getContext("2d"), list[i], {
+                    interactiveText.addTextToCanvas(canvas.get(0).getContext("2d"), list[i], {
                         'x': 20,
                         'y': 40 + (i * 25),
                         'fillstyle': 'blue',
-                        'font': "20px Arial"
-                    });
+                        'font': "20px Arial",
+                        'onclick': function (e, element) {
+                            alert(element.text + ' was clicked.');
+                        }
+                    }); 
+                    // html5Drawer.drawText(canvas.get(0).getContext("2d"), list[i], {
+                    //    'x': 20,
+                     //   'y': 40 + (i * 25),
+                      //  'fillstyle': 'blue',
+                    //    'font': "20px Arial"
+                   // });
                 }
 
                 //drawRoundedBoardersOnCanvas();
