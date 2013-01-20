@@ -4,59 +4,46 @@
         <title>HTML 5 Demo</title>
         <script src="jquery-1.9.0.min.js" type="text/javascript"></script>
         <script src="html5Drawer.js" type="text/javascript"></script>
+        <script src="interactiveText.js" type="text/javascript"></script>
         <script type="text/javascript">
 
             $(document).ready(function () {
-
-                drawRoundedBoardersOnCanvas();
+                
+                var canvas = $("#canvas");
                 html5Drawer.drawRoundedRectangle(
-                    $("#canvas").get(0).getContext("2d"), { 'height': 100, 'width': 200, 'radius':15, 'x': 100, 'y': 100 });
+                    canvas.get(0).getContext("2d"),
+                    {
+                        'height': canvas.height() - 20,
+                        'width': canvas.width() - 20,
+                        'radius': 30,
+                        'x': 10,
+                        'y': 10,
+                        'fillstyle': '#fb7a3c'
+                    });
+
+                var list = ['object1', 'object2', 'object3'];
+
+                for (var i = 0; i < list.length; i++) {
+                    html5Drawer.drawText(canvas.get(0).getContext("2d"), list[i], {
+                        'x': 20,
+                        'y': 40 + (i * 25),
+                        'fillstyle': 'blue',
+                        'font': "20px Arial"
+                    });
+                }
+
+                //drawRoundedBoardersOnCanvas();
+              //  html5Drawer.drawRoundedRectangle(
+               //     $("#canvas").get(0).getContext("2d"), {
+               //         'height': 100, 'width': 200, 'radius': 15, 'x': 100, 'y': 100,
+               //         'strokestyle': '#000000', 'fillstyle': '#FF0000'
+                //    });
             });
 
-            function drawRoundedBoardersOnCanvas() {
-                var canvas = $("#canvas");
-                var context = canvas.get(0).getContext("2d");
-                var canvasHeight = canvas.height();
-                var canvasWidth = canvas.width();
-                var cornerRadius = 50;
-                var rectanglePadding = 10;
 
-                context.beginPath();
-                // start at 0,0
-                context.moveTo(rectanglePadding + cornerRadius, rectanglePadding);
-                // draw top line
-                // Y stays constant, x goes to the width - the padding and the corner radius
-                context.lineTo(canvasWidth - rectanglePadding - cornerRadius, rectanglePadding);
-                // arc from that point down to the right side
-                context.arcTo(canvasWidth - rectanglePadding, rectanglePadding ,
-                    canvasWidth - rectanglePadding, rectanglePadding + cornerRadius, cornerRadius);
-                // draw right line
-                context.lineTo(canvasWidth - rectanglePadding, canvasHeight - cornerRadius - rectanglePadding);
-
-                // arc from right to bottom
-                context.arcTo(canvasWidth - rectanglePadding, canvasHeight - rectanglePadding,
-                    canvasHeight - rectanglePadding - cornerRadius, canvasHeight - rectanglePadding, cornerRadius);
-
-                // draw bottom line
-                context.lineTo(rectanglePadding + cornerRadius, canvasHeight - rectanglePadding);
-
-                // draw arc from bottom to left
-                context.arcTo(rectanglePadding, canvasHeight - rectanglePadding, rectanglePadding,
-                    canvasHeight - rectanglePadding - cornerRadius ,cornerRadius);
-
-                // draw left line
-                context.lineTo(rectanglePadding, rectanglePadding + cornerRadius);
-
-                // draw arc from left to top
-                context.arcTo(rectanglePadding, rectanglePadding, rectanglePadding + cornerRadius,
-                    rectanglePadding, cornerRadius);
-
-
-                context.stroke();
-            }
         </script>
     </head>
     <body>
-        <canvas id="canvas" width="500" height="500"></canvas>
+        <canvas id="canvas" width="700" height="500"></canvas>
     </body>
 </html>

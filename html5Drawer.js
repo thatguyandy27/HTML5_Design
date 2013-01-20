@@ -6,8 +6,15 @@ html5Drawer = new function () {
         var cornerRadius = options["radius"];
         var xStart = options["x"];
         var yStart = options["y"];
+        var strokeStyle = options['strokestyle'];
+        var fillStyle = options['fillstyle'];
 
         context.beginPath();
+
+        if (strokeStyle)
+            context.strokeStyle = strokeStyle;
+
+    
         // start at x,y
         context.moveTo(xStart + cornerRadius, yStart);
         // Y stays constant, x goes to the width + the start - the corner radius
@@ -41,8 +48,30 @@ html5Drawer = new function () {
 
 
         context.stroke();
+
+        if (fillStyle) {
+            context.fillStyle = fillStyle;
+            context.fill();
+        }
     }
 
+    this.drawText = function drawText(context, text, options) {
+
+        var xStart = options["x"];
+        var yStart = options["y"];
+        var fillStyle = options['fillstyle'];
+        var font = options['font'];
+        if (fillStyle) {
+            context.fillStyle = fillStyle;
+            
+        }
+        
+        if (font)
+            context.font = font; 
+        context.fillText(text, xStart, yStart);
+
+        
+    }
 
 };
 
