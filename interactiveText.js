@@ -1,7 +1,7 @@
 interactiveText = new function () {
 
-    var clickEventList = [];
-
+    this.clickEventList = [];
+    
     var hiddenContainer = null;
 
     function init() {
@@ -10,7 +10,42 @@ interactiveText = new function () {
         $('body').append('<span class="interactiveText" style="visibility: hidden;display: inline-block; white-space: nowrap;"></span>')
         hiddenContainer = $('.interactiveText');
     }
-            
+  
+
+    function addTextToCanvas(context, textObject) {
+
+        // Here is what I need to do to figure out the height and width of the text based on font and whatnot
+        // 1. add a hidden div when the interactiveText class is created
+        // 2. make sure I can parse out the font and whatnot from what the canvas expects to what the div expects
+        // 3. grab the height and width from the div
+        // 4. store a "block" around the text so I know whereabouts the text shoudl be. 
+        // 5. need a quick way of checking to see if the item is being interacted with.
+
+        if (textObject.font)
+            hiddenContainer.css('font', textObject.font);
+
+        hiddenContainer.text(textObject.text);
+
+        var actualHeight = hiddenContainer.height();
+        var actualWidth = hiddenContainer.width();
+
+        // set the hight and width of the rectangle incase something has changed
+        textObject.x1 = actualWidth + textObject.x0;
+        textObject.y1 = actualHeight + textObject.y1;
+
+        if (textObject.font)
+            context.font = textObject.font;
+        context.fillText(textObject.text, textObject.x0, textObject.y1);
+    }
+
+    this.redrawCanvas = function (context) {
+
+        for (var i = 0; i < this.clickEventList.length; i++) {
+            addTextToCanvas(context, this.clickEventList[i]);
+        }
+    }
+
+    
     this.addTextToCanvas = function (context, text, options) {
 
         var xStart = options["x"];
@@ -20,33 +55,21 @@ interactiveText = new function () {
         var clickEvent = options['onclick'];
         if (fillStyle) {
             context.fillStyle = fillStyle;
-
         }
-        // Here is what I need to do to figure out the height and width of the text based on font and whatnot
-        // 1. add a hidden div when the interactiveText class is created
-        // 2. make sure I can parse out the font and whatnot from what the canvas expects to what the div expects
-        // 3. grab the height and width from the div
-        // 4. store a "block" around the text so I know whereabouts the text shoudl be. 
-        // 5. need a quick way of checking to see if the item is being interacted with.
-        hiddenContainer.css('font', font);
-        hiddenContainer.text(text);
-
-        var actualHeight = hiddenContainer.height();
-        var actualWidth = hiddenContainer.width();
         
         if (clickEvent) {
             // if first click event added then add the generic event to the canvas
-            if (clickEventList.length == 0)
+            if (this.clickEventList.length == 0)
                 $(context.canvas).click(function (e) {
                     var x = Math.floor((e.pageX - $("#canvas").offset().left));
                     var y = Math.floor((e.pageY - $("#canvas").offset().top));
 
                     //TODO: Somehow figure out who is on top eventually
-                    for (var i = 0; i < clickEventList.length; i++) {
-                        if (clickEventList[i].x0 < x && clickEventList[i].x1 > x &&
-                            clickEventList[i].y0 < y && y < clickEventList[i].y1) {
+                    for (var i = 0; i < interactiveText.clickEventList.length; i++) {
+                        if (interactiveText.clickEventList[i].x0 < x && interactiveText.clickEventList[i].x1 > x &&
+                            interactiveText.clickEventList[i].y0 < y && y < interactiveText.clickEventList[i].y1) {
 
-                            clickEventList[i].event(e, clickEventList[i]);
+                            interactiveText.clickEventList[i].event(e, interactiveText.clickEventList[i], i);
                             break;
                         }
                     }
@@ -55,15 +78,14 @@ interactiveText = new function () {
 
             // add event to the list
             // change the Y, based on position of the text... assumes normal right now.
-            clickEventList.push({
-                'x0': xStart, 'x1': actualWidth + xStart, 'y0': yStart - yStart, 'y1': yStart,
-                'text': text, 'event': clickEvent
+            this.clickEventList.push({
+                'x0': xStart, 'x1':xStart, 'y0': yStart, 'y1': yStart,
+                'text': text, 'event': clickEvent, 'font': font
             });
-            
+
         }
-        if (font)
-            context.font = font;
-        context.fillText(text, xStart, yStart);
+
+        addTextToCanvas(context, this.clickEventList[this.clickEventList.length - 1]);
     }
 
     $(document).ready(function () { init() });

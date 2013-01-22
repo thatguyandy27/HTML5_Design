@@ -29,27 +29,28 @@
                         'y': 40 + (i * 25),
                         'fillstyle': 'blue',
                         'font': "20px Arial",
-                        'onclick': function (e, element) {
-                            alert(element.text + ' was clicked.');
+                        'onclick': function (e, element, index) {
+                            setInterval();
+//                            alert(element.text + ' was clicked.');
                         }
                     }); 
-                    // html5Drawer.drawText(canvas.get(0).getContext("2d"), list[i], {
-                    //    'x': 20,
-                     //   'y': 40 + (i * 25),
-                      //  'fillstyle': 'blue',
-                    //    'font': "20px Arial"
-                   // });
                 }
-
-                //drawRoundedBoardersOnCanvas();
-              //  html5Drawer.drawRoundedRectangle(
-               //     $("#canvas").get(0).getContext("2d"), {
-               //         'height': 100, 'width': 200, 'radius': 15, 'x': 100, 'y': 100,
-               //         'strokestyle': '#000000', 'fillstyle': '#FF0000'
-                //    });
             });
 
+            function redrawCanvas() {
+                var canvas = $("#canvas");
+                html5Drawer.drawRoundedRectangle(
+                    canvas.get(0).getContext("2d"),
+                    {
+                        'height': canvas.height() - 20,
+                        'width': canvas.width() - 20,
+                        'radius': 30,
+                        'x': 10,
+                        'y': 10,
+                        'fillstyle': '#fb7a3c'
+                    });
 
+            }
         </script>
     </head>
     <body>
