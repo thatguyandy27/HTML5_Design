@@ -7,11 +7,15 @@
         <script src="interactiveText.js" type="text/javascript"></script>
         <script type="text/javascript">
 
+            function getContext(){
+                return  $("#canvas").get(0).getContext("2d");
+            }
+
             $(document).ready(function () {
                 
                 var canvas = $("#canvas");
                 html5Drawer.drawRoundedRectangle(
-                    canvas.get(0).getContext("2d"),
+                    getContext(),
                     {
                         'height': canvas.height() - 20,
                         'width': canvas.width() - 20,
@@ -21,21 +25,65 @@
                         'fillstyle': '#fb7a3c'
                     });
 
+                //canvas.get(0).getContext("2d").save();
+
                 var list = ['object1', 'object2', 'object3'];
 
                 for (var i = 0; i < list.length; i++) {
-                    interactiveText.addTextToCanvas(canvas.get(0).getContext("2d"), list[i], {
+                    interactiveText.addTextToCanvas(getContext(), list[i], {
                         'x': 20,
                         'y': 40 + (i * 25),
                         'fillstyle': 'blue',
                         'font': "20px Arial",
                         'onclick': function (e, element, index) {
-                            setInterval();
+                                           
+                            interactiveText.clickEventList = [];
+                            interactiveText.clickEventList.push(element);
+                            index = 0;
+                            setTimeout(function () { moveText(index, canvas.width()/2,  60); }, 50);
 //                            alert(element.text + ' was clicked.');
                         }
                     }); 
                 }
             });
+
+            function moveText(index, xposition, yposition) {
+                var isComplete = true;
+                var rate = 5;
+               // getContext().clearRect(interactiveText.clickEventList[index].x0,
+                //    interactiveText.clickEventList[index].y0,
+                 //   interactiveText.clickEventList[index].x1,
+                  //  interactiveText.clickEventList[index].y1);
+                /*var canvas = $("#canvas");
+
+                html5Drawer.drawRoundedRectangle(
+                    getContext(),
+                    {
+                        'height': canvas.height() - 20,
+                        'width': canvas.width() - 20,
+                        'radius': 30,
+                        'x': 10,
+                        'y': 10,
+                        'fillstyle': '#fb7a3c'
+                    });
+
+                    */
+
+                if (interactiveText.clickEventList[index].x0 < xposition) {
+                    interactiveText.clickEventList[index].x0 += 5;
+                    interactiveText.clickEventList[index].x1 += 5;
+                    isComplete = false;
+                }
+                if (interactiveText.clickEventList[index].y0 > yposition) {
+                    interactiveText.clickEventList[index].y0 -= 50;
+                    interactiveText.clickEventList[index].y1 -= 50;
+                    isComplete = false;
+                }
+
+                interactiveText.redrawCanvas(getContext());
+                if(!isComplete)
+                    setTimeout(function () { moveText(index, xposition, yposition);}, 50);
+            }
 
             function redrawCanvas() {
                 var canvas = $("#canvas");

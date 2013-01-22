@@ -10,6 +10,8 @@ interactiveText = new function () {
         $('body').append('<span class="interactiveText" style="visibility: hidden;display: inline-block; white-space: nowrap;"></span>')
         hiddenContainer = $('.interactiveText');
     }
+
+
   
 
     function addTextToCanvas(context, textObject) {
@@ -57,6 +59,7 @@ interactiveText = new function () {
             context.fillStyle = fillStyle;
         }
         
+
         if (clickEvent) {
             // if first click event added then add the generic event to the canvas
             if (this.clickEventList.length == 0)
