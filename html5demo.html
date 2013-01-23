@@ -40,7 +40,7 @@
                             interactiveText.clickEventList = [];
                             interactiveText.clickEventList.push(element);
                             index = 0;
-                            setTimeout(function () { moveText(index, canvas.width()/2,  60); }, 50);
+                            setTimeout(function () { moveText(index, canvas.width()/2,  60); }, 100);
 //                            alert(element.text + ' was clicked.');
                         }
                     }); 
@@ -50,12 +50,9 @@
             function moveText(index, xposition, yposition) {
                 var isComplete = true;
                 var rate = 5;
-               // getContext().clearRect(interactiveText.clickEventList[index].x0,
-                //    interactiveText.clickEventList[index].y0,
-                 //   interactiveText.clickEventList[index].x1,
-                  //  interactiveText.clickEventList[index].y1);
-                /*var canvas = $("#canvas");
-
+                var canvas = $("#canvas");
+                getContext().clearRect(0, 0, canvas.height(), canvas.width());
+                
                 html5Drawer.drawRoundedRectangle(
                     getContext(),
                     {
@@ -67,23 +64,27 @@
                         'fillstyle': '#fb7a3c'
                     });
 
-                    */
+                    
 
                 if (interactiveText.clickEventList[index].x0 < xposition) {
-                    interactiveText.clickEventList[index].x0 += 5;
-                    interactiveText.clickEventList[index].x1 += 5;
+                   // console.log('x: ' +  interactiveText.clickEventList[index].x0);
+                    interactiveText.clickEventList[index].x0 += 4;
+                    interactiveText.clickEventList[index].x1 += 4;
                     isComplete = false;
                 }
                 if (interactiveText.clickEventList[index].y0 > yposition) {
-                    interactiveText.clickEventList[index].y0 -= 50;
-                    interactiveText.clickEventList[index].y1 -= 50;
+                 //   console.log('y: ' +  interactiveText.clickEventList[index].y0);
+                    interactiveText.clickEventList[index].y0 -= 4;
+                    interactiveText.clickEventList[index].y1 -= 4;
                     isComplete = false;
                 }
 
                 interactiveText.redrawCanvas(getContext());
                 if(!isComplete)
-                    setTimeout(function () { moveText(index, xposition, yposition);}, 50);
+                    setTimeout(function () { moveText(index, xposition, yposition);}, 30);
             }
+
+            
 
             function redrawCanvas() {
                 var canvas = $("#canvas");
@@ -103,5 +104,6 @@
     </head>
     <body>
         <canvas id="canvas" width="700" height="500"></canvas>
+        
     </body>
 </html>
