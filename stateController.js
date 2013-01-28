@@ -1,17 +1,19 @@
 
 stateController = new function () {
-    this._contextId = null;
-    this._isAnimating = false;
+    var _contextId = null;
+    var _isAnimating = false;
+    var _stateContainer = null;
 
-    this.initDrawing = function (contextId) {
-        this._contextId = contextId;
-        this.drawHome();
+    function initDrawing(contextId, stateContainer) {
+        _contextId = contextId;
+        _stateContainer = stateContainer;
+        drawHome();
     }
 
     // draws the background or any static text you want to be redrawn
-    this.drawBackground = function() {
-        var canvas = $("#" + this._contextId);
-        var context = this.getDrawingContext();
+    function drawBackground() {
+        var canvas = $("#" + _contextId);
+        var context = getDrawingContext();
         context.clearRect(0, 0, canvas.height(), canvas.width());
         html5Drawer.drawRoundedRectangle(
             context,
@@ -24,26 +26,26 @@ stateController = new function () {
                 'fillstyle': '#fb7a3c'
             });
 
-      
+
     }
 
-    this.drawHomeButton = function() {
-        interactiveText.addTextToCanvas(this.getDrawingContext(), "Home",
+    function drawHomeButton() {
+        interactiveText.addTextToCanvas(getDrawingContext(), "Home",
             {
                 'x': 20,
                 'y': 10,
                 'fillstyle': 'black',
                 'font': "20px Arial",
                 'onclick': function (e, element, index) {
-                    stateController.drawHome();
+                    drawHome();
                 }
-        });
+            });
     }
 
-    this.drawLeftNav = function(navOptions) {
-        var context = this.getDrawingContext();
+    function drawLeftNav(navOptions) {
+        var context = getDrawingContext();
         var i = 0;
-        var canvas = $("#" + this._contextId);
+        var canvas = $("#" + _contextId);
 
         for (var opt in navOptions) {
             interactiveText.addTextToCanvas(context, navOptions[opt].text, {
@@ -53,12 +55,12 @@ stateController = new function () {
                 'font': "12px Arial",
                 'onclick': function (e, element, index) {
 
-                   // this._isAnimating = true;
+                    // this._isAnimating = true;
                     interactiveText.clickEventList = [];
                     interactiveText.clickEventList.push(element);
-                    stateController.drawHomeButton();
+                    drawHomeButton();
                     index = 0;
-                    setTimeout(function () { stateController.moveText(index, canvas.width() / 2, 60); }, 100);
+                    setTimeout(function () { moveText(index, canvas.width() / 2, 60); }, 100);
                     //                            alert(element.text + ' was clicked.');
                 }
             });
@@ -67,10 +69,10 @@ stateController = new function () {
     }
 
     // draws the initial state
-    this.drawHome = function() {
-        this.drawBackground();
-        this.drawHomeButton();
-        this.drawLeftNav([{ 'text': 'Overview' },
+    function drawHome() {
+        drawBackground();
+        drawHomeButton();
+        drawLeftNav([{ 'text': 'Overview' },
             { 'text': 'Organizing Content' },
             { 'text': 'Navigation' },
             { 'text': 'Page Layout' },
@@ -84,19 +86,19 @@ stateController = new function () {
         ]);
     }
 
-    this.getDrawingContext = function () {
-        return $("#" + this._contextId ).get(0).getContext("2d");
+    function getDrawingContext() {
+        return $("#" + _contextId).get(0).getContext("2d");
     }
 
 
-    this.moveText = function(index, xposition, yposition) {
+    function moveText(index, xposition, yposition) {
         // if canceled then just stop
-//        if (!this._isAnimating)
-  //           return;
+        //        if (!this._isAnimating)
+        //           return;
 
         var isComplete = true;
         var rate = 5;
-        this.drawBackground();
+        drawBackground();
 
         if (interactiveText.clickEventList[index].x0 < xposition) {
             // console.log('x: ' +  interactiveText.clickEventList[index].x0);
@@ -111,12 +113,16 @@ stateController = new function () {
             isComplete = false;
         }
 
-        interactiveText.redrawCanvas(this.getDrawingContext());
+        interactiveText.redrawCanvas(getDrawingContext());
         if (!isComplete) {
-            this._isAnimating = false;
-            setTimeout(function () { stateController.moveText(index, xposition, yposition); }, 30);
+            _isAnimating = false;
+            setTimeout(function () { moveText(index, xposition, yposition); }, 30);
         }
     }
+
+    return {
+        initDrawing: initDrawing
+    };
 
 };
 
