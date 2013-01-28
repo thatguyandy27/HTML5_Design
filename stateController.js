@@ -119,3 +119,15 @@ stateController = new function () {
     }
 
 };
+
+function navOption(navText, nextState) {
+    this.navText = navText;
+    this.nextState = nextState;
+}
+
+function canvasState(stateId, navOptions, headerText, drawCommand) {
+    this.stateId = stateId;
+    this.leftNavOptions = navOptions;
+    this.headerText = headerText;
+    this.drawCommand = drawCommand;
+}
