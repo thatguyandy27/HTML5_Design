@@ -5,101 +5,13 @@
         <script src="jquery-1.9.0.min.js" type="text/javascript"></script>
         <script src="html5Drawer.js" type="text/javascript"></script>
         <script src="interactiveText.js" type="text/javascript"></script>
+        <script src="stateController.js" type="text/javascript"></script>
         <script type="text/javascript">
-
-            function getContext(){
-                return  $("#canvas").get(0).getContext("2d");
-            }
-
+      
             $(document).ready(function () {
-                
-                var canvas = $("#canvas");
-                html5Drawer.drawRoundedRectangle(
-                    getContext(),
-                    {
-                        'height': canvas.height() - 20,
-                        'width': canvas.width() - 20,
-                        'radius': 30,
-                        'x': 10,
-                        'y': 10,
-                        'fillstyle': '#fb7a3c'
-                    });
+                stateController.initDrawing('canvas');
 
-                //canvas.get(0).getContext("2d").save();
-
-                var list = ['object1', 'object2', 'object3'];
-
-                for (var i = 0; i < list.length; i++) {
-                    interactiveText.addTextToCanvas(getContext(), list[i], {
-                        'x': 20,
-                        'y': 40 + (i * 25),
-                        'fillstyle': 'blue',
-                        'font': "20px Arial",
-                        'onclick': function (e, element, index) {
-                                           
-                            interactiveText.clickEventList = [];
-                            interactiveText.clickEventList.push(element);
-                            index = 0;
-                            setTimeout(function () { moveText(index, canvas.width()/2,  60); }, 100);
-//                            alert(element.text + ' was clicked.');
-                        }
-                    }); 
-                }
             });
-
-            function moveText(index, xposition, yposition) {
-                var isComplete = true;
-                var rate = 5;
-                var canvas = $("#canvas");
-                getContext().clearRect(0, 0, canvas.height(), canvas.width());
-                
-                html5Drawer.drawRoundedRectangle(
-                    getContext(),
-                    {
-                        'height': canvas.height() - 20,
-                        'width': canvas.width() - 20,
-                        'radius': 30,
-                        'x': 10,
-                        'y': 10,
-                        'fillstyle': '#fb7a3c'
-                    });
-
-                    
-
-                if (interactiveText.clickEventList[index].x0 < xposition) {
-                   // console.log('x: ' +  interactiveText.clickEventList[index].x0);
-                    interactiveText.clickEventList[index].x0 += 4;
-                    interactiveText.clickEventList[index].x1 += 4;
-                    isComplete = false;
-                }
-                if (interactiveText.clickEventList[index].y0 > yposition) {
-                 //   console.log('y: ' +  interactiveText.clickEventList[index].y0);
-                    interactiveText.clickEventList[index].y0 -= 4;
-                    interactiveText.clickEventList[index].y1 -= 4;
-                    isComplete = false;
-                }
-
-                interactiveText.redrawCanvas(getContext());
-                if(!isComplete)
-                    setTimeout(function () { moveText(index, xposition, yposition);}, 30);
-            }
-
-            
-
-            function redrawCanvas() {
-                var canvas = $("#canvas");
-                html5Drawer.drawRoundedRectangle(
-                    canvas.get(0).getContext("2d"),
-                    {
-                        'height': canvas.height() - 20,
-                        'width': canvas.width() - 20,
-                        'radius': 30,
-                        'x': 10,
-                        'y': 10,
-                        'fillstyle': '#fb7a3c'
-                    });
-
-            }
         </script>
     </head>
     <body>
