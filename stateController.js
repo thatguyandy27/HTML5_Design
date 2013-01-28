@@ -4,10 +4,15 @@ stateController = new function () {
     var _isAnimating = false;
     var _stateContainer = null;
 
-    function initDrawing(contextId, stateContainer) {
+    function initDrawing(contextId, stateList) {
         _contextId = contextId;
-        _stateContainer = stateContainer;
+        createStateContainer(stateList);
         drawHome();
+    }
+    function createStateContainer(stateList) {
+        _stateContainer = {};
+
+        //Add all to the container by ID
     }
 
     // draws the background or any static text you want to be redrawn

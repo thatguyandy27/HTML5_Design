@@ -9,9 +9,169 @@
         <script type="text/javascript">
       
             $(document).ready(function () {
-                stateController.initDrawing('canvas');
+                stateController.initDrawing('canvas', getStates());
 
             });
+
+            function getStates() {
+                var stateContainer = [];
+                stateContainer.push(new canvasState('home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Home', function (context) {
+                        drawHeaderAsText(context, 'Home');
+                    }));
+
+                stateContainer.push(new canvasState('organization_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Organization', function (context) {
+                        drawHeaderAsText(context, 'Organization');
+                    }));
+
+                stateContainer.push(new canvasState('navigation_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Navigation', function (context) {
+                        drawHeaderAsText(context, 'Navigation');
+                    }));
+                stateContainer.push(new canvasState('layout_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Layout', function (context) {
+                        drawHeaderAsText(context, 'Layout');
+                    }));
+
+                stateContainer.push(new canvasState('actions_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Actions', function (context) {
+                        drawHeaderAsText(context, 'Actions');
+                    }));
+                stateContainer.push(new canvasState('complex_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Complex Data', function (context) {
+                        drawHeaderAsText(context, 'Complex Data');
+                    }));
+                 stateContainer.push(new canvasState('input_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Input', function (context) {
+                        drawHeaderAsText(context, 'Input');
+                    }));
+                stateContainer.push(new canvasState('social_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Social', function (context) {
+                        drawHeaderAsText(context, 'Social');
+                    }));
+                stateContainer.push(new canvasState('mobile_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Mobile', function (context) {
+                        drawHeaderAsText(context, 'Mobile');
+                    }));
+                    stateContainer.push(new canvasState('finish_home', [new navOption('Overview', 'overview_home'),
+                    new navOption('Organizing Content', 'organization_home'),
+                    new navOption('Navigation', 'navigation_home'),
+                    new navOption('Page Layout', 'layout_home'),
+                    new navOption('Lists', 'lists_home'),
+                    new navOption('Actions', 'actions_home'),
+                    new navOption('Complex Data', 'complex_home'),
+                    new navOption('Input', 'input_home'),
+                    new navOption('Social', 'social_home'),
+                    new navOption('Mobile', 'mobile_home'),
+                    new navOption('Finishing Touches', 'finish_home')],
+                    'Finishing Touches', function (context) {
+                        drawHeaderAsText(context, 'Finishing Touches');
+                    }));
+            }
+
+            function drawHeaderAsText(context, headerText) {
+                var canvas = $('#canvas');
+                interactiveText.addTextToCanvas(context, headerText,
+                {   
+                    'x': canvas.width / 2 - 20, 
+                    'y': canvas.height / 2,
+                    'fillstyle': 'black',
+                    'font': "24px Arial"
+                });
+
+            }
+            
         </script>
     </head>
     <body>
