@@ -30,20 +30,51 @@
                         drawHeaderAsText(context, 'Home');
                     }));
 
-                stateContainer.push(new canvasState('organization_home', [new navOption('Overview', 'overview_home'),
-                    new navOption('Organizing Content', 'organization_home'),
-                    new navOption('Navigation', 'navigation_home'),
-                    new navOption('Page Layout', 'layout_home'),
-                    new navOption('Lists', 'lists_home'),
-                    new navOption('Actions', 'actions_home'),
-                    new navOption('Complex Data', 'complex_home'),
-                    new navOption('Input', 'input_home'),
-                    new navOption('Social', 'social_home'),
-                    new navOption('Mobile', 'mobile_home'),
-                    new navOption('Finishing Touches', 'finish_home')],
+                stateContainer.push(new canvasState('organization_home', [
+                    new navOption('Feature, Search, Browse', 'organization_feature'),
+                    new navOption('News Stream', 'organization_news'),
+                    new navOption('Picture Manager', 'organization_picture'),
+                    new navOption('Dashboard', 'organization_dashboard'),
+                    new navOption('Canvas + Palette', 'organization_canvas'),
+                    new navOption('Wizard', 'organization_wizard'),
+                    new navOption('Settings', 'organization_settings'),
+                    new navOption('Alternative Views', 'organization_altviews'),
+                    new navOption('Many Workspaces', 'organization_manyws'),
+                    new navOption('Help', 'organization_help')],
                     'Organization', function (context) {
                         drawHeaderAsText(context, 'Organization');
                     }));
+                stateContainer.push(new canvasState('organization_feature',[], 'Feature, Search, Browse', function (context){
+                    drawHeaderAsText(context, "Placeholder for Feature, search, browse");
+                }));
+                stateContainer.push(new canvasState('organization_news', [], 'News Stream', function (context) {
+                    drawHeaderAsText(context, "Placeholder for News Stream");
+                }));
+                stateContainer.push(new canvasState('organization_picture', [], 'Picture Manager', function (context) {
+                    drawHeaderAsText(context, "Placeholder for Picture Manager");
+                }));
+                stateContainer.push(new canvasState('organization_dashboard', [], 'Dashboard', function (context) {
+                    drawHeaderAsText(context, "Placeholder for Dashboard");
+                }));
+                stateContainer.push(new canvasState('organization_canvas', [], 'Canvas + Palette', function (context) {
+                    drawHeaderAsText(context, "Placeholder for Canvas + Palette");
+                }));
+
+                stateContainer.push(new canvasState('organization_wizard', [], 'Wizard', function (context) {
+                    drawHeaderAsText(context, "Placeholder for wizard");
+                }));
+                stateContainer.push(new canvasState('organization_settings', [], 'Settings', function (context) {
+                    drawHeaderAsText(context, "Placeholder for Settings");
+                }));
+                stateContainer.push(new canvasState('organization_altviews', [], 'Alternative Views', function (context) {
+                    drawHeaderAsText(context, "Placeholder for Alternative Views");
+                }));
+                stateContainer.push(new canvasState('organization_manyws', [], 'Many Workspaces', function (context) {
+                    drawHeaderAsText(context, "Placeholder for Many Workspaces");
+                }));
+                stateContainer.push(new canvasState('organization_help', [], 'Help', function (context) {
+                    drawHeaderAsText(context, "Placeholder for Help");
+                }));
 
                 stateContainer.push(new canvasState('navigation_home', [new navOption('Overview', 'overview_home'),
                     new navOption('Organizing Content', 'organization_home'),
@@ -158,6 +189,8 @@
                     'Finishing Touches', function (context) {
                         drawHeaderAsText(context, 'Finishing Touches');
                     }));
+                
+                return stateContainer;
             }
 
             function drawHeaderAsText(context, headerText) {

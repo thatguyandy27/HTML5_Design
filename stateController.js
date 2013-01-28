@@ -13,6 +13,9 @@ stateController = new function () {
         _stateContainer = {};
 
         //Add all to the container by ID
+        for (var state in stateList) {
+            _stateContainer[stateList[state].stateId] = stateList[state]
+        }
     }
 
     // draws the background or any static text you want to be redrawn
@@ -53,19 +56,20 @@ stateController = new function () {
         var canvas = $("#" + _contextId);
 
         for (var opt in navOptions) {
-            interactiveText.addTextToCanvas(context, navOptions[opt].text, {
+            interactiveText.addTextToCanvas(context, navOptions[opt].navText, {
                 'x': 20,
                 'y': 60 + (i * 17),
                 'fillstyle': 'blue',
                 'font': "12px Arial",
                 'onclick': function (e, element, index) {
-
+                    
                     // this._isAnimating = true;
                     interactiveText.clickEventList = [];
-                    interactiveText.clickEventList.push(element);
-                    drawHomeButton();
-                    index = 0;
-                    setTimeout(function () { moveText(index, canvas.width() / 2, 60); }, 100);
+                    drawState(navOptions[opt].nextState);
+                    //interactiveText.clickEventList.push(element);
+                    //drawHomeButton();
+                    //index = 0;
+                    //setTimeout(function () { moveText(index, canvas.width() / 2, 60); }, 100);
                     //                            alert(element.text + ' was clicked.');
                 }
             });
@@ -77,18 +81,19 @@ stateController = new function () {
     function drawHome() {
         drawBackground();
         drawHomeButton();
-        drawLeftNav([{ 'text': 'Overview' },
-            { 'text': 'Organizing Content' },
-            { 'text': 'Navigation' },
-            { 'text': 'Page Layout' },
-            { 'text': 'Lists' },
-            { 'text': 'Actions' },
-            { 'text': 'Complex Data' },
-            { 'text': 'Input' },
-            { 'text': 'Social' },
-            { 'text': 'Mobile' },
-            { 'text': 'Finishing Touches' }
-        ]);
+        drawState('home');
+        //        drawLeftNav([{ 'text': 'Overview' },
+        //            { 'text': 'Organizing Content' },
+        //            { 'text': 'Navigation' },
+        //            { 'text': 'Page Layout' },
+        //            { 'text': 'Lists' },
+        //            { 'text': 'Actions' },
+        //            { 'text': 'Complex Data' },
+        //            { 'text': 'Input' },
+        //            { 'text': 'Social' },
+        //            { 'text': 'Mobile' },
+        //            { 'text': 'Finishing Touches' }
+        //        ]);
     }
 
     function getDrawingContext() {
@@ -123,6 +128,28 @@ stateController = new function () {
             _isAnimating = false;
             setTimeout(function () { moveText(index, xposition, yposition); }, 30);
         }
+        else {
+        }
+    }
+
+    function updateCrumbTrail(stateId, headerText) {
+    }
+
+    function drawState(stateId) {
+        var currentState = _stateContainer[stateId];
+        if (currentState == null) {
+            alert('State ' + stateId + ' does not exist');
+            return;
+        }
+        drawBackground();
+
+        //draw crumb trail somehow.
+        updateCrumbTrail(stateId, currentState.headerText);
+        if (currentState.leftNavOptions != null)
+            drawLeftNav(currentState.leftNavOptions);
+
+        if (currentState.drawCommand != null)
+            currentState.drawCommand();
     }
 
     return {
