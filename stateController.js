@@ -61,11 +61,12 @@ stateController = new function () {
                 'y': 60 + (i * 17),
                 'fillstyle': 'blue',
                 'font': "12px Arial",
-                'onclick': function (e, element, index) {
+                'data': navOptions[opt],
+                'onclick': function (e, element, index, data) {
                     
                     // this._isAnimating = true;
                     interactiveText.clickEventList = [];
-                    drawState(navOptions[opt].nextState);
+                    drawState(data.nextState);
                     //interactiveText.clickEventList.push(element);
                     //drawHomeButton();
                     //index = 0;

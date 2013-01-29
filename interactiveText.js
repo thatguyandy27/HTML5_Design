@@ -63,7 +63,7 @@ interactiveText = new function () {
         var fillStyle = options['fillstyle'];
         var font = options['font'];
         var clickEvent = options['onclick'];
-
+        var data = options['data'];
 
 
         if (clickEvent) {
@@ -78,7 +78,8 @@ interactiveText = new function () {
                         if (interactiveText.clickEventList[i].x0 < x && interactiveText.clickEventList[i].x1 > x &&
                             interactiveText.clickEventList[i].y0 < y && y < interactiveText.clickEventList[i].y1) {
 
-                            interactiveText.clickEventList[i].event(e, interactiveText.clickEventList[i], i);
+                            interactiveText.clickEventList[i].event(e, interactiveText.clickEventList[i], i,    
+                                interactiveText.clickEventList[i].data);
                             break;
                         }
                     }
@@ -89,7 +90,8 @@ interactiveText = new function () {
             // change the Y, based on position of the text... assumes normal right now.
             this.clickEventList.push({
                 'x0': xStart, 'x1': xStart, 'y0': yStart, 'y1': yStart,
-                'text': text, 'event': clickEvent, 'font': font, 'fillstyle': fillStyle
+                'text': text, 'event': clickEvent, 'font': font, 'fillstyle': fillStyle,
+                'data': data
             });
 
         }
