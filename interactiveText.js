@@ -12,6 +12,19 @@ interactiveText = new function () {
     }
 
 
+    this.getTextSize = function (text, font) {
+        var container = hiddenContainer;
+        if (container == null)
+            container = $('.interactiveText');
+        
+        container.css('font', font);
+        container.text(text);
+
+        return {
+            'height': container.height(),
+            'width': container.width()
+        };
+    }
 
 
     function addTextToCanvas(context, textObject) {
@@ -78,7 +91,7 @@ interactiveText = new function () {
                         if (interactiveText.clickEventList[i].x0 < x && interactiveText.clickEventList[i].x1 > x &&
                             interactiveText.clickEventList[i].y0 < y && y < interactiveText.clickEventList[i].y1) {
 
-                            interactiveText.clickEventList[i].event(e, interactiveText.clickEventList[i], i,    
+                            interactiveText.clickEventList[i].event(e, interactiveText.clickEventList[i], i,
                                 interactiveText.clickEventList[i].data);
                             break;
                         }

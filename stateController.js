@@ -3,9 +3,12 @@ stateController = new function () {
     var _contextId = null;
     var _isAnimating = false;
     var _stateContainer = null;
+    var _breadCrumbList = [];
+
 
     function initDrawing(contextId, stateList) {
         _contextId = contextId;
+        _breadCrumbList = [];
         createStateContainer(stateList);
         drawHome();
     }
@@ -61,7 +64,7 @@ stateController = new function () {
                 'y': 60 + (i * 17),
                 'fillstyle': 'blue',
                 'font': "12px Arial",
-                'data': navOptions[opt],
+                'data': navOptions[opt]`,
                 'onclick': function (e, element, index, data) {
                     
                     // this._isAnimating = true;
@@ -134,6 +137,29 @@ stateController = new function () {
     }
 
     function updateCrumbTrail(stateId, headerText) {
+        
+        // does id already exist?
+        for (var i = 0; i < _breadCrumbList; i++) {
+            if (_breadCrumbList[i].stateId == stateId)
+            {
+                // if found then remove it and all others after it
+                _breadCrumbList.length = i - 1;
+                break;
+            }
+        }
+
+        // add at the end.  If it was found it was removed, if not then it is ok to add anyway
+        _breadCrumbList.push({ 'stateId': stateId, 'headerText' : headerText});
+        drawBreadCrumbs();
+    }
+
+    function drawBreadCrumbs()
+    {
+        var xStart = 0;
+        var yStart = 0;
+        for (var i = 0; i < _breadCrumbList.length; i++) {
+            
+        }
     }
 
     function drawState(stateId) {
