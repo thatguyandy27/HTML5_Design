@@ -64,9 +64,9 @@ stateController = new function () {
                 'y': 60 + (i * 17),
                 'fillstyle': 'blue',
                 'font': "12px Arial",
-                'data': navOptions[opt]`,
+                'data': navOptions[opt],
                 'onclick': function (e, element, index, data) {
-                    
+
                     // this._isAnimating = true;
                     interactiveText.clickEventList = [];
                     drawState(data.nextState);
@@ -137,28 +137,46 @@ stateController = new function () {
     }
 
     function updateCrumbTrail(stateId, headerText) {
-        
+
         // does id already exist?
-        for (var i = 0; i < _breadCrumbList; i++) {
-            if (_breadCrumbList[i].stateId == stateId)
-            {
+        for (var i = 0; i < _breadCrumbList.length; i++) {
+            if (_breadCrumbList[i].stateId == stateId) {
                 // if found then remove it and all others after it
-                _breadCrumbList.length = i - 1;
+                _breadCrumbList.length = i;
                 break;
             }
         }
 
         // add at the end.  If it was found it was removed, if not then it is ok to add anyway
-        _breadCrumbList.push({ 'stateId': stateId, 'headerText' : headerText});
+        _breadCrumbList.push({ 'stateId': stateId, 'headerText': headerText });
         drawBreadCrumbs();
     }
 
-    function drawBreadCrumbs()
-    {
-        var xStart = 0;
-        var yStart = 0;
+    function drawBreadCrumbs() {
+        var xStart = 20;
+        var yStart = 20;
+        var xPadding = 10;
+        var font = "14px Arial";
+        var context = getDrawingContext();
         for (var i = 0; i < _breadCrumbList.length; i++) {
-            
+
+            var text = _breadCrumbList[i].headerText;
+
+            interactiveText.addTextToCanvas(context, ">" +  text, {
+                'x': xStart,
+                'y': yStart,
+                'fillstyle': 'Black',
+                'font': font,
+                'data': _breadCrumbList[i].stateId,
+                'onclick': function (e, element, index, data) {
+
+                    drawState(data);
+
+                }
+            });
+
+            xStart += interactiveText.getTextSize(text, font).width + xPadding;
+
         }
     }
 
