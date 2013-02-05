@@ -194,7 +194,7 @@ stateController = new function () {
             drawLeftNav(currentState.leftNavOptions);
 
         if (currentState.drawCommand != null)
-            currentState.drawCommand();
+            currentState.drawCommand(getDrawingContext());
     }
 
     return {

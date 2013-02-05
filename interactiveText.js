@@ -1,7 +1,7 @@
 interactiveText = new function () {
 
     this.clickEventList = [];
-
+    this.isInitialized = false;
     var hiddenContainer = null;
 
     function init() {
@@ -16,7 +16,7 @@ interactiveText = new function () {
         var container = hiddenContainer;
         if (container == null)
             container = $('.interactiveText');
-        
+
         container.css('font', font);
         container.text(text);
 
@@ -79,9 +79,15 @@ interactiveText = new function () {
         var data = options['data'];
 
 
+        var textObject = {
+            'x0': xStart, 'x1': xStart, 'y0': yStart, 'y1': yStart,
+            'text': text, 'event': clickEvent, 'font': font, 'fillstyle': fillStyle,
+            'data': data
+        };
+
         if (clickEvent) {
             // if first click event added then add the generic event to the canvas
-            if (this.clickEventList.length == 0)
+            if (this.clickEventList.length == 0 && !this.isInitialized) {
                 $(context.canvas).click(function (e) {
                     var x = Math.floor((e.pageX - $("#canvas").offset().left));
                     var y = Math.floor((e.pageY - $("#canvas").offset().top));
@@ -98,18 +104,16 @@ interactiveText = new function () {
                     }
 
                 });
+                this.isInitialized = true;
+            }
 
             // add event to the list
             // change the Y, based on position of the text... assumes normal right now.
-            this.clickEventList.push({
-                'x0': xStart, 'x1': xStart, 'y0': yStart, 'y1': yStart,
-                'text': text, 'event': clickEvent, 'font': font, 'fillstyle': fillStyle,
-                'data': data
-            });
+            this.clickEventList.push(textObject);
 
         }
 
-        addTextToCanvas(context, this.clickEventList[this.clickEventList.length - 1]);
+        addTextToCanvas(context, textObject);
     }
 
     $(document).ready(function () { init() });
