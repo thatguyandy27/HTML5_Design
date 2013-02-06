@@ -65,6 +65,15 @@ organization = new function () {
         return y;
     }
 
+    function drawNewsStream(context) {
+        drawHeader(context, 'News Stream');
+        drawWhatWhenWhyHow(context, 'Used to show time sensitive items in a reverse chronological list.',
+            'Use if your site delivers timely content to your users.  It may also be good for it to be personal or "owned" by someone',
+            'Use it so people can keep up with your stream easily, since the latest items appear on top.',
+            'Display the items in reverse order.  If you can, "push" new items onto the list without the user having to refresh the page');
+    }
+
+
     function drawFeatureSearchBrowse(context) {
         drawHeader(context, 'Feature, Search, Browse');
         drawWhatWhenWhyHow(context,
@@ -72,6 +81,14 @@ organization = new function () {
             'If your site has a lot of browsable and searchable items.  Also if there are items you want to feature immedately upon landing on your site.',
             'Searching and browsing both give your users the capibility of finding items either directly via searching, or open-ended via browsing.  Featured items can entice or hook the user immediately without a ton of extra work.',
             'Put the search in a prominent location such as the upper corner & make it stand out.  The features should be important and eye catching (video, images, etc.).  It should take the bulk of the page.  Place selectable features, categories, etc. in the left nav.  When desiging, think of using subcategories and breadcrumbs to help with the design.');
+    }
+
+    function drawPicureManager(context) {
+        drawHeader(context, "Picture Manager");
+        drawWhatWhenWhyHow(context,
+            'Used to display a collection of pictures, videos, etc.  May allow editing, commenting, or just viewing.',
+            'It is a good way to display visual items that a user will immediately recognize.',
+            "Set up two views on the screen.  The first one is a thumbnail grid or list that will allow the user to select an item.  Once selected present the enlarged item either in fullscreen or the majority of the screen.");
     }
 
     function drawOrganizationHome(context) {
@@ -122,13 +139,13 @@ organization = new function () {
                         drawOrganizationHome(context);
                     }),
                     new canvasState('organization_feature', [], 'Feature, Search, Browse', function (context) {
-                        drawFeatureSearchBrowse(context, "Placeholder for Feature, search, browse");
+                        drawFeatureSearchBrowse(context);
                     }),
                     new canvasState('organization_news', [], 'News Stream', function (context) {
-                        drawHeaderAsText(context, "Placeholder for News Stream");
+                        drawNewsStream(context);
                     }),
                     new canvasState('organization_picture', [], 'Picture Manager', function (context) {
-                        drawHeaderAsText(context, "Placeholder for Picture Manager");
+                        drawPicureManager(context);
                     }),
                     new canvasState('organization_dashboard', [], 'Dashboard', function (context) {
                         drawHeaderAsText(context, "Placeholder for Dashboard");
