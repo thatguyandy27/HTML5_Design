@@ -16,29 +16,6 @@
 
 
             function addWrappedText(context, text, options) {
-                var words = text.split(' ');
-                var x = options['x'];
-                var y = options['y'];
-                var font = options['font'];
-                var textInfo = interactiveText.getTextSize(text, font);
-                var lineHeight = textInfo.height;
-                var line = '';
-
-                for (var n = 0; n < words.length; n++) {
-                    var testLine = line + words[n] + ' ';
-                    var metrics = context.measureText(testLine);
-                    var testWidth = metrics.width;
-
-                    if (testWidth > maxWidth) {
-                        context.fillText(line, x, y);
-                        line = words[n] + ' ';
-                        y += lineHeight;
-                    }
-                    else {
-                        line = testLine;
-                    }
-                }
-                context.fillText(line, x, y);
             }
 
             function getStates() {

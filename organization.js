@@ -3,15 +3,85 @@ organization = new function () {
     var headerFont = '16px Arial';
     var textFont = '12px Arial';
 
-    function drawOrganizationHome(context) {
+    function drawHeader(context, headerText) {
         var canvas = $(canvasId);
-
-        var textInfo = interactiveText.getTextSize('The Big Picture', headerFont);
+        var textInfo = interactiveText.getTextSize(headerText, headerFont);
         var x = (canvas.width() / 2) - (textInfo.width / 2);
+        var y = 10;
+
+        interactiveText.addTextToCanvas(context, headerText, { 'x': x, 'y': y, 'fillstyle': 'black', 'font': headerFont });
+    }
+
+    function drawWhatWhenWhyHow(context, whatText, whenText, whyText, howText) {
+        var y = 60;
+        var x = 20;
+        var maxWidth = 450;
+        var headerSize = interactiveText.getTextSize('What is it?', headerFont);
+        var sectionPadding = 40;
+
+        interactiveText.addTextToCanvas(context, 'What is it?', { 'x': x, 'y': y, 'fillstyle': 'black', 'font': headerFont });
+        y += headerSize.height + 10;
+        y = drawWrappedText(context, whatText, x, y, maxWidth);
+
+        y += sectionPadding;
+        interactiveText.addTextToCanvas(context, 'When to use it?', { 'x': x, 'y': y, 'fillstyle': 'black', 'font': headerFont });
+        y += headerSize.height + 10;
+        y = drawWrappedText(context, whenText, x, y, maxWidth);
+
+        y += sectionPadding;
+        interactiveText.addTextToCanvas(context, 'Why use it?', { 'x': x, 'y': y, 'fillstyle': 'black', 'font': headerFont });
+        y += headerSize.height + 10;
+        y = drawWrappedText(context, whyText, x, y, maxWidth);
+
+        y += sectionPadding;
+        interactiveText.addTextToCanvas(context, 'How to use it?', { 'x': x, 'y': y, 'fillstyle': 'black', 'font': headerFont });
+        y += headerSize.height + 10;
+        y = drawWrappedText(context, howText, x, y, maxWidth);
+
+    }
+
+    function drawWrappedText(context, text, x, y, maxWidth) {
+        var words = text.split(' ');
+        var textInfo = interactiveText.getTextSize(text, textFont);
+        var lineHeight = textInfo.height;
+        var line = '';
+
+        for (var n = 0; n < words.length; n++) {
+            var testLine = line + words[n] + ' ';
+            var metrics = context.measureText(testLine);
+            var testWidth = metrics.width;
+
+            if (testWidth > maxWidth) {
+                interactiveText.addTextToCanvas(context, line, { 'x': x, 'y': y, 'fillstyle': 'black', 'font': textFont });
+                line = words[n] + ' ';
+                y += lineHeight;
+            }
+            else {
+                line = testLine;
+            }
+        }
+        interactiveText.addTextToCanvas(context, line, { 'x': x, 'y': y, 'fillstyle': 'black', 'font': textFont });
+
+        return y;
+    }
+
+    function drawFeatureSearchBrowse(context) {
+        drawHeader(context, 'Feature, Search, Browse');
+        drawWhatWhenWhyHow(context,
+            'Used to display the main page of a site or app.  A featured item, capibility to search for item, and a list of browsable items.',
+            'If your site has a lot of browsable and searchable items.  Also if there are items you want to feature immedately upon landing on your site.',
+            'Searching and browsing both give your users the capibility of finding items either directly via searching, or open-ended via browsing.  Featured items can entice or hook the user immediately without a ton of extra work.',
+            'Put the search in a prominent location such as the upper corner & make it stand out.  The features should be important and eye catching (video, images, etc.).  It should take the bulk of the page.  Place selectable features, categories, etc. in the left nav.  When desiging, think of using subcategories and breadcrumbs to help with the design.');
+    }
+
+
+
+    function drawOrganizationHome(context) {
         var y = 10;
         var leftMargin = 200;
 
-        interactiveText.addTextToCanvas(context, 'The Big Picture', { 'x': x, 'y': y, 'fillstyle': 'black', 'font': headerFont });
+        drawHeader(context, 'The Big Picture');
+        var textInfo = interactiveText.getTextSize(headerText, headerFont);
 
         y += textInfo.height + 30;
         interactiveText.addTextToCanvas(context, 'Any page in the application should primarily do one of these things:', { 'x': leftMargin, 'y': y, 'fillstyle': 'black',
@@ -54,7 +124,7 @@ organization = new function () {
                         drawOrganizationHome(context);
                     }),
                     new canvasState('organization_feature', [], 'Feature, Search, Browse', function (context) {
-                        drawHeaderAsText(context, "Placeholder for Feature, search, browse");
+                        drawFeatureSearchBrowse(context, "Placeholder for Feature, search, browse");
                     }),
                     new canvasState('organization_news', [], 'News Stream', function (context) {
                         drawHeaderAsText(context, "Placeholder for News Stream");
