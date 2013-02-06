@@ -58,13 +58,13 @@ stateController = new function () {
         var i = 0;
         var canvas = $("#" + _contextId);
 
-        for (var opt in navOptions) {
-            interactiveText.addTextToCanvas(context, navOptions[opt].navText, {
+        for (var i = 0; i < navOptions.length; i++ ) {
+            interactiveText.addTextToCanvas(context, navOptions[i].navText, {
                 'x': 20,
                 'y': 60 + (i * 17),
                 'fillstyle': 'blue',
                 'font': "12px Arial",
-                'data': navOptions[opt],
+                'data': navOptions[i],
                 'onclick': function (e, element, index, data) {
 
                     // this._isAnimating = true;
@@ -77,7 +77,7 @@ stateController = new function () {
                     //                            alert(element.text + ' was clicked.');
                 }
             });
-            i++;
+
         }
     }
 
@@ -162,7 +162,7 @@ stateController = new function () {
 
             var text = _breadCrumbList[i].headerText;
 
-            interactiveText.addTextToCanvas(context, ">" +  text, {
+            interactiveText.addTextToCanvas(context, ">" + text, {
                 'x': xStart,
                 'y': yStart,
                 'fillstyle': 'Black',

@@ -74,14 +74,12 @@ organization = new function () {
             'Put the search in a prominent location such as the upper corner & make it stand out.  The features should be important and eye catching (video, images, etc.).  It should take the bulk of the page.  Place selectable features, categories, etc. in the left nav.  When desiging, think of using subcategories and breadcrumbs to help with the design.');
     }
 
-
-
     function drawOrganizationHome(context) {
         var y = 10;
         var leftMargin = 200;
 
         drawHeader(context, 'The Big Picture');
-        var textInfo = interactiveText.getTextSize(headerText, headerFont);
+        var textInfo = interactiveText.getTextSize('The Big Picture', headerFont);
 
         y += textInfo.height + 30;
         interactiveText.addTextToCanvas(context, 'Any page in the application should primarily do one of these things:', { 'x': leftMargin, 'y': y, 'fillstyle': 'black',
