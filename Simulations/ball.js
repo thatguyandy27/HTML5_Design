@@ -2,7 +2,7 @@ function Ball(radius, color, mass, charge, gradient){
     if (radius == null) radius = 20;
     if (color == null) color = "#0000ff";
     if (mass == null) mass = 1;
-    if (charge == null) charge  0;
+    if (charge == null) charge = 0;
     if (gradient == null) gradient = false;
 
     this.color = color;
