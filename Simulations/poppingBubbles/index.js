@@ -9,7 +9,7 @@ window.onload = init;
 
 function init(){
     for(var i =0; i < numBubbles; i++){
-        var radius = (Math.random() + 1)* 20;
+        var radius = (Math.random() + 2)* 20;
         var color = 'hsl(' + Math.random() * 360 + ',100%, 50%)';
         var bubble = new Bubble(radius, color, 1, 0, true);
         bubble.pos2D = new Vector2D(canvas.width/2, canvas.height/2);
