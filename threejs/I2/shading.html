@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <style>
+            body{
+                background-color:#FFFFFF ;
+                margin:0;
+                overflow:hidden;
+            }
+            #shadingContainer{
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+        </style>
+
+        <script type="text/javascript" src='../three.min.js'></script>
+    </head>
+    <body>
+        <div id='shadingContainer'>
+            <select id='shading'>
+                <option>MeshBasicMaterial</option>
+                <option>MeshNormalMaterial</option>
+                <option>MeshDepthMaterial</option>
+                <option>MeshLambertMaterial</option>
+                <option>MeshPhongMaterial</option>
+                <option>MeshFaceMaterial</option>
+                <option>ShaderMaterial</option>
+
+            </select>
+        </div>
+    </body>
+    <script type='text/javascript' src='shading.js'></script>
+</html>

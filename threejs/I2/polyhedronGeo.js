@@ -6,29 +6,18 @@ function init(){
     scene = new THREE.Scene();
 
     var verticesOfCube = [
-        new THREE.Vector3( -1, -1, -1 ),
-        new THREE.Vector3( 1, -1, -1 ),
-        new THREE.Vector3( 1, 1, -1 ),
-        new THREE.Vector3( -1, 1, -1 ),
-        new THREE.Vector3( -1, -1, 1 ),
-        new THREE.Vector3( 1, -1, 1 ),
-        new THREE.Vector3( 1, 1, 1 ),
-        new THREE.Vector3( -1, 1, 1 )
+
+        -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+        -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1
     ];
 
     var indicesOfFaces = [
-        new THREE.Face3(2,1,0),
-        new THREE.Face3(0,3,2),
-        new THREE.Face3(0,4,7),            
-        new THREE.Face3(7,3,0),
-        new THREE.Face3(0,1,5),            
-        new THREE.Face3(5,4,0),
-        new THREE.Face3(1,2,6),            
-        new THREE.Face3(6,5,1),
-        new THREE.Face3(2,3,7),            
-        new THREE.Face3(7,6,2),
-        new THREE.Face3(4,5,6),            
-        new THREE.Face3(6,7,4)
+        2,1,0,    0,3,2,
+        0,4,7,    7,3,0,
+        0,1,5,    5,4,0,
+        1,2,6,    6,5,1,
+        2,3,7,    7,6,2,
+        4,5,6,    6,7,4
     ];
 
     geometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 6, 2 );
